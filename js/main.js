@@ -19,25 +19,24 @@ var Preloader = new Phaser.Class({
     create: function () // Fonction pour créer toute objet du jeu
     {
         console.log('Main');
+        
         this.scene.add('load'  , Load , false);
 
         // On fait apparaitre le logo phaser puis on le fait disparaitre en effet fondu grâce a la caméra 
 
         image = this.add.image(360, 240, 'phaserLogo');
         image.setDisplaySize(250,250);
-        
         this.cameras.main.fadeIn(500);
         this.time.addEvent({
             delay: 1000,
             callback: ()=>{
                 this.cameras.main.fadeOut(500);
-                setTimeout(() => { this.scene.start('load'); }, 1000);
+                setTimeout(() => { this.scene.start('load',session); }, 1000);
             },
             loop: false
         })
         
         this.cameras.main.fadeIn(500);
-        
     
     }
 
@@ -55,3 +54,14 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
+var session = {
+
+    username : '',
+    password : '',
+    forgotLink : '',
+
+    address : '',
+    token : ''
+
+}
