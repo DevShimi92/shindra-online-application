@@ -4,7 +4,7 @@ var MainMenu = new Phaser.Class({
 
     initialize:
 
-    function MainMenu ()
+    function MainMenu (session)
     {
         Phaser.Scene.call(this);
         window.MENU = this;
@@ -23,7 +23,8 @@ var MainMenu = new Phaser.Class({
     create: function () 
     {
         console.log('Mainmenu');
-    
+        socket.emit('Ping');
+        console.log(session);
     }
 
 });
