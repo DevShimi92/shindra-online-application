@@ -14,12 +14,18 @@ var Load = new Phaser.Class({
 
     preload: function ()  // Fonction pour chargé toute ressourece du jeu
     {
+        
         // On charge le fichier de config
         this.load.json('configJson', 'config.json ');
 
         // Puis on charge les prochaines potentiels scenes
         this.load.script('mainmenu','js/mainmenu.js');
         this.load.script('login','js/login.js');
+
+        this.load.image('logoLoad', 'resource/picture/RouageVert.png');
+
+
+           
     },
 
     create: function () 
@@ -32,6 +38,8 @@ var Load = new Phaser.Class({
         
         this.scene.add('mainmenu'  , MainMenu , false);
         this.scene.add('login'  , Login , false);
+
+        logoLoad = this.add.image(400, 300, 'logoLoad');
 
         // Puis on charge le fichier de config
 
@@ -50,11 +58,13 @@ var Load = new Phaser.Class({
             }
 
         // On démarre le sockect de connexion 
-        socket = io(session.address);
+        socket = io(session.address, {
+            reconnection: false // Le client n'a pas a se reconncter "tout seul". Si on le reconnecte, sa sera de façon explicite.
+        });
 
         // ** Event de socket ** 
 
-        // Event de test ( ping pong)
+        // Event de test ( ping pong )
         socket.on('Pong', function() {
             console.log('Pong');
         });
@@ -91,14 +101,14 @@ var Load = new Phaser.Class({
            
            if (( etat === 'error') && (LoadForm === true)){
             console.log('Authentification failed ');
-            socket.close();
             LoadForm=false
             this.scene.start('login',session); //Scene pour l'identification
             
             }
             else if ( etat === 'error') {
                 console.log('Authentification failed ');
-                socket.close();
+                this.scene.start('login',session); 
+            
             }
             else
             {
@@ -108,6 +118,12 @@ var Load = new Phaser.Class({
             }
 
           });
+    },
+    update: function()
+    {
+        logoLoad.rotation += 0.10;
     }
+
+
 
 });

@@ -21,7 +21,7 @@ var Login = new Phaser.Class({
 
         //socket.connect();
 
-        this.scene.start('mainmenu',session);
+        //this.scene.start('mainmenu',session);
     
     }
 
