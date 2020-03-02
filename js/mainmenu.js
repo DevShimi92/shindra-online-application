@@ -23,7 +23,7 @@ var MainMenu = new Phaser.Class({
     create: function () 
     {
         console.log('Mainmenu');
-        socket.emit('Ping');
+        //socket.emit('Ping');
         console.log(session);
     }
 
