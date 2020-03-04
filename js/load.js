@@ -4,7 +4,6 @@ var Load = new Phaser.Class({
 
     initialize:
     
-
     function Load (session)
     {
         Phaser.Scene.call(this);
@@ -14,18 +13,9 @@ var Load = new Phaser.Class({
 
     preload: function ()  // Fonction pour chargé toute ressourece du jeu
     {
-        
         // On charge le fichier de config
         this.load.json('configJson', 'config.json ');
-
-        // Puis on charge les prochaines potentiels scenes
-        this.load.script('mainmenu','js/mainmenu.js');
-        this.load.script('login','js/login.js');
-
-        this.load.image('logoLoad', 'resource/picture/RouageVert.png');
-
-
-           
+        this.load.image('logoLoad', 'resource/picture/RouageVert.png');   
     },
 
     create: function () 
@@ -33,15 +23,10 @@ var Load = new Phaser.Class({
         console.log('Load');
         
         // console.log(game.device.os); DEBUG
-        
-        // On ajoute d'abord les scenes qui seront appelé 
-        
-        this.scene.add('mainmenu'  , MainMenu , false);
-        this.scene.add('login'  , Login , false);
 
         logoLoad = this.add.image(400, 300, 'logoLoad');
 
-        // Puis on charge le fichier de config
+        // On charge le fichier de config
 
         let configJSON = this.cache.json.get('configJson');
 
@@ -108,6 +93,8 @@ var Load = new Phaser.Class({
             else if ( etat === 'error') {
                 console.log('Authentification failed ');
                 this.scene.start('login',session); 
+                this.scene.stop();
+
             
             }
             else
