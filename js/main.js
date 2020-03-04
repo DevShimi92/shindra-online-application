@@ -11,8 +11,12 @@ var Preloader = new Phaser.Class({
 
     preload: function ()  // Fonction pour chargé toute ressourece du jeu
     {
+        // On charge les prochaines potentiels scenes
         this.load.script('load','js/load.js');
+        this.load.script('mainmenu','js/mainmenu.js');
+        this.load.script('login','js/login.js');
 
+        // Puis les resources
         this.load.image("phaserLogo", "resource/picture/phaser_logo.png");
     },
 
@@ -21,6 +25,9 @@ var Preloader = new Phaser.Class({
         console.log('Main');
         
         this.scene.add('load'  , Load , false);
+        
+        this.scene.add('mainmenu'  , MainMenu , false);
+        this.scene.add('login'  , Login , false);
 
         // On fait apparaitre le logo phaser puis on le fait disparaitre en effet fondu grâce a la caméra 
 
@@ -48,16 +55,19 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    //parent: 'Nom_de_la_balise',
+    parent: 'gameForm',
+    dom: {
+        createContainer: true
+    },
     scene: [ Preloader ],
     version: "0.0.0"
 };
 
 var game = new Phaser.Game(config);
 
-var session = {
+var session = { // Note : pour les login/password, faudra tenté de les stocké dans les sesionStorage
 
-    username : '',
+    username : '', 
     password : '',
     forgotLink : '',
 
