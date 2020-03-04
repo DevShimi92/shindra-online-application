@@ -12,17 +12,41 @@ var Login = new Phaser.Class({
 
     preload: function ()  // Fonction pour chargé toute ressourece du jeu
     {
-        this.load.script('mainmenu','js/mainmenu.js');
+        this.load.html('nameform', 'resource/loginform.html');
     },
 
-    create: function () // Fonction pour créer toute objet du jeu
-    {
-        console.log('Login');  
-
-        //socket.connect();
-
-        //this.scene.start('mainmenu',session);
     
+    create:function ()
+    {
+        console.log('Login');
+
+        var element = this.add.dom(400, 300).createFromCache('nameform');
+        
+        element.setPerspective(800);
+
+        element.addListener('click');
+
+        element.on('click', function (event) {
+
+            if (event.target.name === 'loginButton')
+            {
+                var inputUsername = this.getChildByName('username');
+                var inputPassword = this.getChildByName('password');
+
+                if (inputUsername.value !== '' && inputPassword.value !== '')
+                {
+                    session.username = inputUsername.value;
+                    session.password = inputPassword.value ;
+                    game.scene.start('load',session);
+                    
+                }
+
+            }
+
+        });
+       
+        
     }
+
 
 });
