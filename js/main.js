@@ -59,6 +59,8 @@ var Preloader = new Phaser.Class({
         this.load.script('load','js/load.js');
         this.load.script('mainmenu','js/mainmenu.js');
         this.load.script('login','js/login.js');
+        this.load.script('passwordforgot','js/passwordforgot.js');
+        this.load.script('singup','js/singup.js');
 
         // Puis les resources
         this.load.image("phaserLogo", "resource/picture/phaser_logo.png");
@@ -91,9 +93,10 @@ var Preloader = new Phaser.Class({
 
 
         this.scene.add('load'  , Load , false);
-        
         this.scene.add('mainmenu'  , MainMenu , false);
         this.scene.add('login'  , Login , false);
+        this.scene.add('passwordforgot'  , Passwordforgot , false);
+        this.scene.add('singup'  , Singup , false);
 
         // On fait apparaitre le logo phaser puis on le fait disparaitre en effet fondu grâce a la caméra 
 

@@ -31,27 +31,40 @@ var Login = new Phaser.Class({
         element.addListener('click');
 
         element.on('click', function (event) {
-
+            
+            console.log(event.target.name);
+            
             if (event.target.name === 'loginButton')
             {
-                console.log('Loginc');
                 var inputUsername = this.getChildByName('username');
                 var inputPassword = this.getChildByName('password');
 
                 if (inputUsername.value !== '' && inputPassword.value !== '')
                 {
-                    console.log('Logind');
                     game.scale.removeFullscreenTarget;
                     console.log(game.scale.fullScreenTarget);
                     session.username = inputUsername.value;
                     session.password = inputPassword.value ;
                     console.log(session);
                     game.scene.start('load',session);
-                    console.log('LoginE');
                     
                 }
 
             }
+
+            if (event.target.name === 'donthaveButton')
+            {
+                game.scale.removeFullscreenTarget;
+                game.scene.start('singup'); 
+            }
+
+            if (event.target.name === 'forgotButton')
+            {
+                
+                game.scale.removeFullscreenTarget;
+                game.scene.start('passwordforgot'); 
+            }
+
 
         });
        
