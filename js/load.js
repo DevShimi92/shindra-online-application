@@ -25,8 +25,6 @@ var Load = new Phaser.Class({
         // console.log(game.device.os); DEBUG
 
         logoLoad = this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'logoLoad');
-
-       // this.logoLoad.setDisplaySize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
         // On charge le fichier de config
 
