@@ -24,8 +24,8 @@ var Load = new Phaser.Class({
         
         // console.log(game.device.os); DEBUG
 
-        logoLoad = this.add.image(400, 300, 'logoLoad');
-
+        logoLoad = this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'logoLoad');
+        
         // On charge le fichier de config
 
         let configJSON = this.cache.json.get('configJson');
@@ -40,6 +40,10 @@ var Load = new Phaser.Class({
             {
                 session.username = configJSON.id;
                 session.password = configJSON.password ;
+                console.log(configJSON.id);
+                console.log(configJSON.password );
+                console.log(session.username);
+                console.log(session.password);
             }
 
         // On démarre le sockect de connexion 
