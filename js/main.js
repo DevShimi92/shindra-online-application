@@ -107,7 +107,8 @@ var Preloader = new Phaser.Class({
             callback: ()=>{
                 this.cameras.main.fadeOut(500);
                 setTimeout(() => { this.scene.start('load',session); }, 1000);
-                setTimeout(() => { this.scene.remove('load');this.scene.start('accueilShindra',session); }, 1000);
+                setTimeout(() => { this.scene.start('accueilShindra',session); }, 3000);
+                setTimeout(() => { this.scene.remove('load',session); }, 2000);
             },
             loop: false
         })
