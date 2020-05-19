@@ -6,7 +6,7 @@ var Login = new Phaser.Class({
 
     function Preloader ()
     {
-        Phaser.Scene.call(this);
+        Phaser.Scene.call(this, { key: 'login' });
         window.MENU = this;
     },
 
@@ -22,7 +22,7 @@ var Login = new Phaser.Class({
 
         // On charge l'élement HTML et on l'insert 
         var element = this.add.dom(this.game.config.width / 2, this.game.config.height / 2).createFromCache('nameform');
-        
+       
         /// DEBUG console.log(this.game.scale.fullScreenTarget);
 
         //On place le focus du plein écran sur lui
@@ -32,11 +32,12 @@ var Login = new Phaser.Class({
         // console.log(this.game.scale.getFullscreenTarget());
 
         // On ajoute les événement de l'élément HTML
+        //element.setVisible('true');
         element.setPerspective(80);
         element.addListener('click');
         element.on('click', function (event) {
             
-            console.log(event.target.name);
+            // DEBUG  console.log(event.target.name);
             
             if (event.target.name === 'loginButton')
             {
@@ -56,16 +57,18 @@ var Login = new Phaser.Class({
 
             }
 
-            if (event.target.name === 'donthaveButton')
+            if (event.target.name === 'NotAccount')
             {
                 game.scale.removeFullscreenTarget;
+                element.destroy();
                 game.scene.start('singup'); 
             }
 
-            if (event.target.name === 'forgotButton')
+            if (event.target.name === 'forgotpassword')
             {
                 
                 game.scale.removeFullscreenTarget;
+                element.destroy();
                 game.scene.start('passwordforgot'); 
             }
 
