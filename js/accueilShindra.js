@@ -21,16 +21,14 @@ var accueilShindra = new Phaser.Class({
         
         this.background = this.add.sprite(-80, -80, 'background_image');
         this.background.setOrigin(0, 0);
-        this.background = this.add.text(300, 550, 'Press A Key to Start...');
+        this.background = this.add.text(300, 550, 'Press A Key to Start...', {font: '25px Arial', fill: '#ffffff'});
         this.tween = this.tweens.add({
             targets: this.background,
             alpha: { from: 0, to: 1 },
-            // alpha: { start: 0, to: 1 },
-            // alpha: 1,
-            // alpha: '+=1',
-            ease: 'Circ.easeIn',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+
+            ease: 'Circ.easeIn',
             duration: 2000,
-            repeat: -1,            // -1: infinity
+            repeat: -1,
             yoyo: false
         });
         this.image = this.add.sprite(400, 350, 'play-circle');
@@ -38,14 +36,11 @@ var accueilShindra = new Phaser.Class({
 
         this.input.keyboard.on('keyup', function (e) {
             if(e.key == "a") {
-                this.scene.start("Example2");
+                this.scene.start("platformGame");
             }
         }, this);
-    //     this.title_text = this.add.title_text(100, 100, 'Press A Key to Start');
+    },
+    start: function() {
+        this.scene.start("platformGame");
     }
 })
-    
-
-    
-
-// export default Example1

@@ -57,6 +57,7 @@ var Preloader = new Phaser.Class({
 
         // On charge les prochaines potentiels scenes
         this.load.script('accueilShindra', 'js/accueilShindra.js');
+        this.load.script('platformGame', 'js/platformGame.js');
         this.load.script('load','js/load.js');
         this.load.script('mainmenu','js/mainmenu.js');
         this.load.script('login','js/login.js');
@@ -93,6 +94,7 @@ var Preloader = new Phaser.Class({
 
 
         this.scene.add('accueilShindra', accueilShindra, false);
+        this.scene.add('platformGame', platformGame, false);
         this.scene.add('load'  , Load , false);
         this.scene.add('mainmenu'  , MainMenu , false);
         this.scene.add('login'  , Login , false);
@@ -107,6 +109,7 @@ var Preloader = new Phaser.Class({
             callback: ()=>{
                 this.cameras.main.fadeOut(500);
                 setTimeout(() => { this.scene.start('load',session); }, 1000);
+                
                 setTimeout(() => { this.scene.start('accueilShindra',session); }, 3000);
                 setTimeout(() => { this.scene.remove('load',session); }, 2000);
             },
