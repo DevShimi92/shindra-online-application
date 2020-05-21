@@ -19,19 +19,33 @@ var Passwordforgot = new Phaser.Class({
     create:function ()
     {
         console.log('Passwordforgot');
-
          // On charge l'élement HTML et on l'insert 
          var element = this.add.dom(this.game.config.width / 2, this.game.config.height / 2).createFromCache('forgotform');
          //On place le focus du plein écran sur lui
         this.game.scale.fullScreenTarget = document.getElementById('wrapper');
-        // element2.setVisible('true');
          // On ajoute les événement de l'élément HTML
         element.setPerspective(80);
         element.addListener('click');
         element.on('click', function (event) {
             
-            //Debug console.log(event.target.name);
-            
+           console.log(event.target.name);
+            if (event.target.name === 'forgotMailButton')
+                {
+                    var inputForgotMail = this.getChildByName('forgotMail');
+
+                    if (inputForgotMail.value !== '' )
+                        {
+                            console.log(inputForgotMail.value);
+                            socket = io(session.address, {
+                                reconnection: false // Le client n'a pas a se reconncter "tout seul". Si on le reconnecte, sa sera de façon explicite.
+                            });
+                            socket.emit('ForgotPassword', { email : inputForgotMail.value });
+                            socket.on('ForgotPassword_reply', (etat) => {
+                                console.log(etat);
+                            });
+                        }
+
+                }
             if (event.target.name === 'HaveAccount')
                 {
                     game.scale.removeFullscreenTarget;
@@ -40,7 +54,7 @@ var Passwordforgot = new Phaser.Class({
 
                 }
             
-                if (event.target.name === 'NotAccount')
+            if (event.target.name === 'NotAccount')
                 {
                     game.scale.removeFullscreenTarget;
                     element.destroy();
