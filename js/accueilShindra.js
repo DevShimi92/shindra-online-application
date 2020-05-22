@@ -13,12 +13,13 @@ var accueilShindra = new Phaser.Class({
     preload: function() {
         this.load.image('background_image', 'assets/shindra.png');
         this.load.image('play-circle', 'assets/play-circle.png');
+        this.load.image('background', 'assets/background.png');
         
     },
 
     // called once after the preload ends
     create: function() {
-        
+        this.add.image(800/2, 600/2,'background');
         this.background = this.add.sprite(-80, -80, 'background_image');
         this.background.setOrigin(0, 0);
         this.background = this.add.text(300, 550, 'Press A Key to Start...', {font: '25px Arial', fill: '#ffffff'});
