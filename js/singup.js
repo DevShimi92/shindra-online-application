@@ -18,7 +18,6 @@ var Singup = new Phaser.Class({
     
     create:function ()
     {
-
         console.log('Singup');
         
          // On charge l'élement HTML et on l'insert 
@@ -31,7 +30,45 @@ var Singup = new Phaser.Class({
         element.addListener('click');
         element.on('click', function (event) {
             
-            //Debug console.log(event.target.name);
+            console.log(event.target.name);
+            if (event.target.name === 'createButton')
+                {
+                    var inputLastName = this.getChildByName('lastName');
+                    var inputFirstName = this.getChildByName('firstName');
+                    var inputUsername = this.getChildByName('username');
+                    var inputEmail = this.getChildByName('email');
+                    var inputPassword = this.getChildByName('password');
+                    var inputConfirmPassword = this.getChildByName('confirmpassword');
+
+                    if (inputLastName.value !== '' || inputFirstName.value !== ''  || inputUsername.value !== ''  || inputEmail.value !== ''  || inputPassword.value !== ''  || inputConfirmPassword.value !== '')
+                        {
+                            console.log(inputLastName.value);
+                            console.log(inputFirstName.value);
+                            console.log(inputUsername.value);
+                            console.log(inputEmail.value);
+                            console.log(inputPassword.value);
+                            console.log(inputConfirmPassword.value);
+
+                            if (inputPassword.value == inputConfirmPassword.value )
+                            {
+
+                                socket = io(session.address, {
+                                    reconnection: false // Le client n'a pas a se reconncter "tout seul". Si on le reconnecte, sa sera de façon explicite.
+                                });
+                                socket.emit('CreateAccount', { 
+                                    lastname : inputLastName.value,
+                                    firstname : inputFirstName.value,
+                                    username : inputUsername.value,
+                                    email : inputEmail.value,
+                                    password : inputPassword.value
+                                });
+                                socket.on('CreateAccount_reply', (etat) => {
+                                    console.log(etat);
+                                });
+                             }
+                        }
+
+                  }
             
             if (event.target.name === 'HaveAccount')
                 {
