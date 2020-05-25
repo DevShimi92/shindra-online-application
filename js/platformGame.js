@@ -16,7 +16,6 @@ var platformGame = new Phaser.Class({
         for(let i = 1; i < 10; i++) {
             this.load.image("assets" +i, "assets/cards/c0" + i + ".png");
         }
-        this.load.image('background', 'assets/background.png');
         
     },
 
@@ -24,7 +23,7 @@ var platformGame = new Phaser.Class({
     create: function() {
         console.log("Ready");
         // Chargement du fond du jeu
-        this.add.image(800/2, 600/2,'background');
+        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3C2C44");
         this.add.text(0, 0, 'ShindraOnline', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
 
         this.cardArray=[];
