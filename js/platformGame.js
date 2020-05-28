@@ -16,79 +16,80 @@ var platformGame = new Phaser.Class({
         for(let i = 1; i < 10; i++) {
             this.load.image("assets" +i, "assets/cards/c0" + i + ".png");
         }
+        this.load.image('cardExample', 'assets/asB01.png');
         
     },
 
     // called once after the preload ends
     create: function() {
         console.log("Ready");
+
+        this.zone = new Zone(this);
+        this.dropZone = this.zone.renderZone();
+        this.outline = this.zone.renderOutline(this.dropZone);
+        
         // Chargement du fond du jeu
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3C2C44");
         this.add.text(0, 0, 'ShindraOnline', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+        //-------------------------------------------------------------------------
+        // # variable
+        let self = this; // default fonction
 
-        this.cardArray=[];
+        // this.card = this.add.image(300, 300, 'as').setScale(0.3, 0.3).setInteractive();
+        // exemple d'une carte drag 
+        // this.card = this.add.image(300, 300, 'cardExample').setScale(0.1, 0.1).setInteractive();
 
-        this.grid = this.add.grid(190, 100, 400, 400, 100,100);
-        this.grid.setOrigin(0, 0);
-
-        this.aGrid = new AlignGrid({scene: this, rows:11, cols:11});
-
-        // this.aGrid.showNumbers();
-
-        // Pose une carte
-        for (var card = 1; card < 10; card++) {
-            this.card = this.add.image(535, 150, "assets"+card);
-            // Align.scaleToGameW(card, .25);
-            // console.log(card);
-            this.card.setScale(0.1);
-            // this.aGrid.placeAtIndex(52, this.card);
-            
-            this.cardArray.push(this.card);
+        // this.input.setDraggable(this.card);
+        //---------------------------Initialise 9 cartes ----------------------------------------------//
+        this.dealCards = () => {
+            for (let i = 0; i < 9; i++) {
+                // Appel de la classe card 
+                let playerCard = new Card(this);
+                //abscisse (=x) + (i * écart des cartes), ordonnée (=y)
+                // avec la division, on peut faire une pioche.
+                playerCard.render(100 , 165 + (i * 30), 'cardExample');
+            }
         }
 
-        // Pose une carte
-        for (var card = 1; card < 10; card++) {
-            this.card = this.add.image(425, 150, "assets"+card);
-            // Align.scaleToGameW(card, .25);
-            // console.log(card);
-            this.card.setScale(0.1);
-            // this.aGrid.placeAtIndex(50, this.card);
-            this.cardArray.push(this.card);
-        }
-        // Pose plusieurs cartes 
-        for (var card = 1; card < 10; card++) {
-            this.card = this.add.image(105, 300, "assets"+card);
-            this.card.index=card;
-            // Align.scaleToGameW(card, .25);
-            // console.log(card);
-            this.card.setScale(0.1);
-            //Mettre Verticale
-            this.card.setX
-            this.aGrid.placeAtIndex(12+(card*11), this.card);
-            // Mettre Horizontale
-            // this.aGrid.placeAtIndex(112+(card/2), this.card);
-            this.cardArray.push(this.card);
-            this.card.setInteractive();
-            
-        }
-        this.input.on('gameobjectdown', this.cardClick.bind(this));
-        window.scene=this;
-    },
-    cardClick(pointer, card) {
-        console.log(card.index);
-        this.turnCardOn(card.index);
-    },
+        //---------------------------Clique sur deal cards pour initialiser ----------------------------------------------//
+        this.dealText = this.add.text(50, 50, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
 
-    AllOff() {
-        for (var card = 0; card < 10; card++) {
-            this.cardArray[card].visible=false;
+        this.dealText.on('pointerdown', function() {
+            self.dealCards();
+        })
 
-        }
-    },
+        this.dealText.on('pointerover', function() {
+            self.dealText.setColor('#ff69b4');
+        })
 
-    turnCardOn(index) {
-        this.AllOff();
-        this.cardArray[index-1].visible=true;
-    }
+        this.dealText.on('pointerout', function() {
+            self.dealText.setColor('#00fff');
+        })
+        // On drag et change de couleur
+        this.input.on('dragstart', function(pointer, gameObject) {
+            gameObject.setTint(0xff69b4);
+            self.children.bringToTop(gameObject);
+        })
 
+        this.input.on('dragend', function(pointer, gameObject, dropped) {
+            gameObject.setTint();
+            if(!dropped) {
+                gameObject.x = gameObject.input.dragStartX;
+                gameObject.y = gameObject.input.dragStartY;
+            }
+        })
+
+        this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        })
+
+        this.input.on('drop', function(pointer, gameObject, dropZone) {
+            dropZone.data.values.cards++;
+            gameObject.x = (dropZone.x - 350) + (dropZone.data.values.cards * 50);
+            gameObject.y = dropZone.y;
+            gameObject.disableInteractive();
+            // self.socket.emit('cardPlayed', gameObject, self.isPlayerA);
+        })
+    }, // fin create()
 })

@@ -110,7 +110,7 @@ var Preloader = new Phaser.Class({
                 this.cameras.main.fadeOut(500);
                 setTimeout(() => { this.scene.start('load',session); }, 1000);
                 
-                setTimeout(() => { this.scene.start('accueilShindra',session); }, 3000);
+                setTimeout(() => { this.scene.start('accueilShindra',session); },3000); // 3000
                 setTimeout(() => { this.scene.remove('load',session); }, 2000);
             },
             loop: false
@@ -124,8 +124,8 @@ var Preloader = new Phaser.Class({
 });
 
 
-const DEFAULT_WIDTH  = 800
-const DEFAULT_HEIGHT = 600
+const DEFAULT_WIDTH  = 800 // 1280
+const DEFAULT_HEIGHT = 600 // 780
 
 
 var config = {
