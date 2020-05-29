@@ -6,7 +6,7 @@ var Load = new Phaser.Class({
     
     function Load (session)
     {
-        Phaser.Scene.call(this);
+        Phaser.Scene.call(this), { key: 'load' };
         window.MENU = this;
     },
 
@@ -104,7 +104,7 @@ var Load = new Phaser.Class({
             else
             {
                 console.log('Authentification OK');
-                this.scene.remove('login');
+                this.scene.stop('login');
                 this.scene.start('mainmenu',session);
             }
 
