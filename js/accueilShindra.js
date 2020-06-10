@@ -21,7 +21,7 @@ var accueilShindra = new Phaser.Class({
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3C2C44");
         this.background = this.add.sprite(-80, -80, 'background_image');
         this.background.setOrigin(0, 0);
-        this.background = this.add.text(300, 550, 'Press A Key to Start...', {font: '25px Arial', fill: '#ffffff'});
+        this.background = this.add.text(300, 550, 'Press the A Key to Start...', {font: '25px Arial', fill: '#ffffff'});
         this.tween = this.tweens.add({
             targets: this.background,
             alpha: { from: 0, to: 1 },
