@@ -22,7 +22,6 @@ var Preloader = new Phaser.Class({
 
             // adjust the width dynamically based on the device screen ratio
             const DEFAULT_WIDTH = (window.innerWidth / window.innerHeight) * DEFAULT_HEIGHT
-        
             const config = {
               type: Phaser.AUTO,
               scale: {
@@ -39,20 +38,16 @@ var Preloader = new Phaser.Class({
             version: "0.0.0"
               //...
             }
-    
-            
             console.log(DEFAULT_WIDTH);
             console.log(this.game.config.width);
 
 
         if (( game.device.os.desktop == false ) && ( DEFAULT_WIDTH !== this.game.config.width))
         {
-            game.destroy(true);   
+            game.destroy(true);  
             this.game = new Phaser.Game(config);
             console.log('Resize');
-            
         }
-            
 
 
         // On charge les prochaines potentiels scenes
@@ -109,16 +104,13 @@ var Preloader = new Phaser.Class({
             callback: ()=>{
                 this.cameras.main.fadeOut(500);
                 setTimeout(() => { this.scene.start('load',session); }, 1000);
-                
-                setTimeout(() => { this.scene.start('accueilShindra',session); }); // 3000
+                // setTimeout(() => { this.scene.start('login',session); }, 3000); // 3000
+                setTimeout(() => { this.scene.start('accueilShindra',session); }, 3000); // 3000
                 setTimeout(() => { this.scene.remove('load',session); }, 2000);
             },
             loop: false
         })
-        
         this.cameras.main.fadeIn(500);
-        
-    
     }
 
 });
